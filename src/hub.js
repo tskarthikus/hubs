@@ -190,6 +190,8 @@ import { renderAsEntity } from "./utils/jsx-entity";
 import { VideoMenuPrefab } from "./prefabs/video-menu";
 import { ObjectMenuPrefab } from "./prefabs/object-menu";
 import { ObjectMenu } from "./bit-components";
+import { loadWaypointPreview, WaypointPreview } from "./prefabs/waypoint-preview";
+import { preload } from "./utils/preload";
 
 window.APP = new App();
 renderAsEntity(APP.world, VideoMenuPrefab());
@@ -206,6 +208,11 @@ setTimeout(() => {
   obj.matrixNeedsUpdate = true;
   AFRAME.scenes[0].object3D.add(obj);
 }, 2000);
+preload(
+  loadWaypointPreview().then(() => {
+    renderAsEntity(APP.world, WaypointPreview());
+  })
+);
 
 const store = window.APP.store;
 store.update({ preferences: { shouldPromptForRefresh: false } }); // Clear flag that prompts for refresh from preference screen

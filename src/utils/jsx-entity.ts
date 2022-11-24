@@ -30,7 +30,8 @@ import {
   Deletable,
   SceneLoader,
   NavMesh,
-  SceneRoot
+  SceneRoot,
+  WaypointPreview
 } from "../bit-components";
 import { inflateMediaLoader } from "../inflators/media-loader";
 import { inflateMediaFrame } from "../inflators/media-frame";
@@ -286,6 +287,7 @@ export interface JSXComponentData extends ComponentData {
   object3D?: any;
   text?: any;
   model?: ModelParams;
+  waypointPreview?: boolean;
 }
 
 export interface GLTFComponentData extends ComponentData {
@@ -348,6 +350,7 @@ const jsxInflators: Required<{ [K in keyof JSXComponentData]: InflatorFn }> = {
   videoMenuItem: createDefaultInflator(VideoMenuItem),
   sceneRoot: createDefaultInflator(SceneRoot),
   sceneLoader: createDefaultInflator(SceneLoader),
+  waypointPreview: createDefaultInflator(WaypointPreview),
   mediaLoader: inflateMediaLoader,
 
   // inflators that create Object3Ds
