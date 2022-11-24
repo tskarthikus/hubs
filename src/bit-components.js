@@ -191,3 +191,7 @@ export const ObjectMenu = defineComponent({
 });
 
 export const ObjectMenuTarget = defineComponent();
+
+export const Waypoint = defineComponent({
+  flags: Types.ui8
+});
