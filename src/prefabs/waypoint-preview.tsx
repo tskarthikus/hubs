@@ -7,10 +7,12 @@ import { Object3D } from "three";
 type LoadModelResult = { scene: Object3D };
 
 let model: Object3D | null;
-export async function loadWaypointPreview() {
+export async function loadWaypointPreviewModel() {
   model = ((await loadModel(modelSrc, null, false)) as LoadModelResult).scene;
 }
 
 export function WaypointPreview() {
+  if (!model) throw new Error("Must load the model before creating waypoint preview entity.");
+
   return <entity name="Waypoint Preview" waypointPreview model={{ model: model! }}></entity>;
 }

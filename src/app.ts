@@ -56,6 +56,14 @@ interface HubDescription {
   hub_id: string;
 }
 
+let resolvePromiseToScene: (value: Scene) => void;
+const promiseToScene: Promise<Scene> = new Promise(resolve => {
+  resolvePromiseToScene = resolve;
+});
+export function getScene() {
+  return promiseToScene;
+}
+
 export class App {
   scene?: AScene;
   hubChannel?: HubChannel;
@@ -196,6 +204,7 @@ export class App {
 
     this.world.scene = sceneEl.object3D;
     const scene = sceneEl.object3D;
+    resolvePromiseToScene(scene);
 
     // We manually call scene.updateMatrixWolrd in mainTick
     scene.autoUpdate = false;

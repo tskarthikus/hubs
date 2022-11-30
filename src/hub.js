@@ -181,7 +181,7 @@ import "./systems/audio-gain-system";
 
 import "./gltf-component-mappings";
 
-import { App } from "./app";
+import { App, getScene } from "./app";
 import MediaDevicesManager from "./utils/media-devices-manager";
 import PinningHelper from "./utils/pinning-helper";
 import { sleep } from "./utils/async-utils";
@@ -190,7 +190,7 @@ import { renderAsEntity } from "./utils/jsx-entity";
 import { VideoMenuPrefab } from "./prefabs/video-menu";
 import { ObjectMenuPrefab } from "./prefabs/object-menu";
 import { ObjectMenu } from "./bit-components";
-import { loadWaypointPreview, WaypointPreview } from "./prefabs/waypoint-preview";
+import { loadWaypointPreviewModel, WaypointPreview } from "./prefabs/waypoint-preview";
 import { preload } from "./utils/preload";
 
 window.APP = new App();
@@ -209,8 +209,9 @@ setTimeout(() => {
   AFRAME.scenes[0].object3D.add(obj);
 }, 2000);
 preload(
-  loadWaypointPreview().then(() => {
-    renderAsEntity(APP.world, WaypointPreview());
+  Promise.all([loadWaypointPreviewModel(), getScene()]).then(([, scene]) => {
+    const eid = renderAsEntity(APP.world, WaypointPreview());
+    scene.add(APP.world.eid2obj.get(eid));
   })
 );
 

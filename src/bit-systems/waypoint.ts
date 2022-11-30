@@ -123,10 +123,7 @@ export function waypointSystem(
 
   const hovered = hoveredRightWaypointQuery(world) || hoveredLeftWaypointQuery(world);
   if (!preview) {
-    // Initialize the preview if it hasn't been initialized yet.
-    // TODO Make adding this preview to the scene easier to do.
     preview = world.eid2obj.get(anyEntityWith(world, WaypointPreview)!)!;
-    APP.scene!.object3D.add(preview);
   }
   preview.visible = !!hovered.length;
   if (hovered.length) {
