@@ -258,6 +258,7 @@ import { swapActiveScene } from "./bit-systems/scene-loading";
 import { setLocalClientID } from "./bit-systems/networking";
 import { listenForNetworkMessages } from "./utils/listen-for-network-messages";
 import { loadStoredRoomData } from "./utils/load-room-objects";
+import { exposeBitECSDebugHelpers } from "./bitecs-debug-helpers";
 
 const PHOENIX_RELIABLE_NAF = "phx-reliable";
 NAF.options.firstSyncSource = PHOENIX_RELIABLE_NAF;
@@ -289,6 +290,10 @@ disableiOSZoom();
 
 if (!isOAuthModal) {
   detectConcurrentLoad();
+}
+
+if (qsTruthy("ecsDebug")) {
+  exposeBitECSDebugHelpers();
 }
 
 function setupLobbyCamera() {
